@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Geography Quest — Premium Edition</title>
+    <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="globe"></div>
+        <div class="stars"></div>
+        <div class="floating-icons">
+            <span class="float-icon" style="--delay: 0s; --x: 10%;">🗺️</span>
+            <span class="float-icon" style="--delay: 2s; --x: 25%;">🌎</span>
+            <span class="float-icon" style="--delay: 4s; --x: 40%;">🏔️</span>
+            <span class="float-icon" style="--delay: 1s; --x: 55%;">🌊</span>
+            <span class="float-icon" style="--delay: 3s; --x: 70%;">🏛️</span>
+            <span class="float-icon" style="--delay: 5s; --x: 85%;">🌋</span>
+        </div>
+    </div>
+
+    <!-- Start Screen -->
+    <section id="start-screen" class="screen active">
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo-globe">🌍</div>
+                <h1 class="title">Geography Quest</h1>
+                <p class="tagline">Test Your World Knowledge</p>
+            </div>
+            
+            <div class="card glass">
+                <div class="input-group">
+                    <label for="player-name">Enter Your Name</label>
+                    <input type="text" id="player-name" placeholder="Explorer Name..." maxlength="30" required>
+                    <span class="input-hint">Required to start your journey</span>
+                </div>
+                
+                <div class="difficulty-selector">
+                    <label>Select Difficulty</label>
+                    <div class="difficulty-options">
+                        <button class="diff-btn" data-difficulty="easy">
+                            <span class="diff-icon">🌱</span>
+                            <span class="diff-label">Easy</span>
+                            <span class="diff-desc">90s • 5 lives</span>
+                        </button>
+                        <button class="diff-btn active" data-difficulty="medium">
+                            <span class="diff-icon">🌿</span>
+                            <span class="diff-label">Medium</span>
+                            <span class="diff-desc">60s • 3 lives</span>
+                        </button>
+                        <button class="diff-btn" data-difficulty="hard">
+                            <span class="diff-icon">🔥</span>
+                            <span class="diff-label">Hard</span>
+                            <span class="diff-desc">45s • 2 lives</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <button id="start-btn" class="btn btn-primary btn-large">
+                    <span>Start Adventure</span>
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">🎯</span>
+                    <span>5 Levels</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">⚡</span>
+                    <span>Timed Challenges</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🏆</span>
+                    <span>Score Tracking</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Screen -->
+    <section id="game-screen" class="screen">
+        <div class="game-container">
+            <!-- Top HUD -->
+            <header class="game-hud">
+                <div class="hud-left">
+                    <div class="player-info">
+                        <span class="player-avatar">👤</span>
+                        <span id="display-name" class="player-name">Explorer</span>
+                    </div>
+                </div>
+                <div class="hud-center">
+                    <div class="level-badge">
+                        <span class="level-label">Level</span>
+                        <span id="current-level" class="level-number">1</span>
+                    </div>
+                </div>
+                <div class="hud-right">
+                    <button id="pause-btn" class="hud-btn" title="Pause Game">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item stat-score">
+                    <span class="stat-icon">⭐</span>
+                    <div class="stat-content">
+                        <span class="stat-label">Score</span>
+                        <span id="score" class="stat-value">0</span>
+                    </div>
+                </div>
+                <div class="stat-item stat-lives">
+                    <span class="stat-icon">❤️</span>
+                    <div class="stat-content">
+                        <span class="stat-label">Lives</span>
+                        <span id="lives" class="stat-value">3</span>
+                    </div>
+                </div>
+                <div class="stat-item stat-timer">
+                    <span class="stat-icon">⏱️</span>
+                    <div class="stat-content">
+                        <span class="stat-label">Time</span>
+                        <span id="timer" class="stat-value">60</span>
+                    </div>
+                </div>
+                <div class="stat-item stat-streak">
+                    <span class="stat-icon">🔥</span>
+                    <div class="stat-content">
+                        <span class="stat-label">Streak</span>
+                        <span id="streak" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <span id="progress-text" class="progress-text">Question 1 of 5</span>
+            </div>
+
+            <!-- Question Area -->
+            <main class="question-area">
+                <div class="question-card glass">
+                    <div class="question-header">
+                        <span id="question-category" class="question-category">Capitals</span>
+                        <span id="question-points" class="question-points">+10 pts</span>
+                    </div>
+                    <h2 id="question-text" class="question-text">Loading question...</h2>
+                    
+                    <!-- Image container for visual questions -->
+                    <div id="question-image-container" class="question-image-container hidden">
+                        <img id="question-image" src="" alt="Question image">
+                    </div>
+                </div>
+
+                <!-- Answer Options -->
+                <div id="answers-container" class="answers-grid">
+                    <!-- Answers will be inserted here -->
+                </div>
+
+                <!-- Feedback Display -->
+                <div id="feedback" class="feedback hidden">
+                    <div class="feedback-content">
+                        <span class="feedback-icon"></span>
+                        <span class="feedback-text"></span>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Power-ups (Optional Feature) -->
+            <div class="powerups-bar">
+                <button id="powerup-5050" class="powerup-btn" title="50/50 - Remove 2 wrong answers">
+                    <span class="powerup-icon">✂️</span>
+                    <span class="powerup-count">2</span>
+                </button>
+                <button id="powerup-skip" class="powerup-btn" title="Skip - Skip this question">
+                    <span class="powerup-icon">⏭️</span>
+                    <span class="powerup-count">1</span>
+                </button>
+                <button id="powerup-time" class="powerup-btn" title="+15 Seconds">
+                    <span class="powerup-icon">⏰</span>
+                    <span class="powerup-count">1</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Level Complete Screen -->
+    <section id="level-complete-screen" class="screen">
+        <div class="container">
+            <div class="celebration">
+                <div class="confetti"></div>
+                <div class="trophy">🏆</div>
+            </div>
+            <div class="card glass level-card">
+                <h2 class="level-title">Level <span id="completed-level">1</span> Complete!</h2>
+                <div class="level-stats">
+                    <div class="level-stat">
+                        <span class="level-stat-value" id="level-score">50</span>
+                        <span class="level-stat-label">Points Earned</span>
+                    </div>
+                    <div class="level-stat">
+                        <span class="level-stat-value" id="level-accuracy">80%</span>
+                        <span class="level-stat-label">Accuracy</span>
+                    </div>
+                    <div class="level-stat">
+                        <span class="level-stat-value" id="level-time">45s</span>
+                        <span class="level-stat-label">Time Left</span>
+                    </div>
+                </div>
+                <div class="bonus-display">
+                    <span class="bonus-label">Time Bonus</span>
+                    <span id="time-bonus" class="bonus-value">+25</span>
+                </div>
+                <button id="next-level-btn" class="btn btn-primary btn-large">
+                    <span>Next Level</span>
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Over Screen -->
+    <section id="gameover-screen" class="screen">
+        <div class="container">
+            <div class="card glass results-card">
+                <div class="results-header">
+                    <span class="results-emoji" id="results-emoji">🌟</span>
+                    <h2 class="results-title" id="results-title">Great Job!</h2>
+                </div>
+                
+                <div class="final-score-display">
+                    <span class="final-score-label">Final Score</span>
+                    <span id="final-score" class="final-score-value">0</span>
+                    <span id="score-breakdown" class="score-breakdown">out of 250 possible</span>
+                </div>
+
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <span class="result-stat-icon">📊</span>
+                        <span id="final-percentage" class="result-stat-value">0%</span>
+                        <span class="result-stat-label">Accuracy</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-stat-icon">✅</span>
+                        <span id="correct-answers" class="result-stat-value">0</span>
+                        <span class="result-stat-label">Correct</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-stat-icon">🎯</span>
+                        <span id="max-streak" class="result-stat-value">0</span>
+                        <span class="result-stat-label">Best Streak</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-stat-icon">🏔️</span>
+                        <span id="level-reached" class="result-stat-value">1</span>
+                        <span class="result-stat-label">Level Reached</span>
+                    </div>
+                </div>
+
+                <div class="grade-display">
+                    <span class="grade-label">Your Grade</span>
+                    <span id="grade" class="grade-value">B</span>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="retry-btn" class="btn btn-primary">
+                        <span>🔄</span> Play Again
+                    </button>
+                    <button id="home-btn" class="btn btn-secondary">
+                        <span>🏠</span> Home
+                    </button>
+                </div>
+
+                <p class="submission-note">
+                    <span class="check-icon">✓</span> Your results have been saved!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pause Modal -->
+    <div id="pause-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <h2>Game Paused</h2>
+            <div class="pause-stats">
+                <p>Score: <span id="pause-score">0</span></p>
+                <p>Level: <span id="pause-level">1</span></p>
+            </div>
+            <div class="modal-buttons">
+                <button id="resume-btn" class="btn btn-primary">Resume</button>
+                <button id="quit-btn" class="btn btn-secondary">Quit Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
